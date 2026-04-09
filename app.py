@@ -4,9 +4,6 @@ app.py
 Streamlit UI for the Smart Query Analyzer.
 Run with:  streamlit run app.py
 
-Requirements:
-    pip install streamlit pandas mysql-connector-python
-"""
 
 import streamlit as st
 import pandas as pd
@@ -22,9 +19,9 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Custom CSS
-# ─────────────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap');
@@ -84,20 +81,19 @@ html, body, [class*="css"] { font-family: 'Syne', sans-serif; }
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Initialise DB once per session
-# ─────────────────────────────────────────────────────────────────────────────
+
 if "db_ready" not in st.session_state:
     try:
         setup_database()
         st.session_state["db_ready"] = True
     except Exception as e:
-        st.error(f"⚠️ Could not connect to MySQL: {e}")
+        st.error(f" Could not connect to MySQL: {e}")
         st.stop()
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Hero header
-# ─────────────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <div class="hero">
   <h1>🔍 Smart Query <span class="accent">Analyzer</span></h1>
@@ -105,9 +101,9 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Input area
-# ─────────────────────────────────────────────────────────────────────────────
+
 prefill = st.session_state.pop("prefill", "")
 
 user_input = st.text_input(
@@ -121,9 +117,9 @@ run_col, _ = st.columns([1, 5])
 with run_col:
     run_btn = st.button("▶  Analyze Query", use_container_width=True)
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Main logic
-# ─────────────────────────────────────────────────────────────────────────────
+
 if run_btn and user_input.strip():
 
     # Step 1: NL → SQL
@@ -143,19 +139,19 @@ if run_btn and user_input.strip():
         st.markdown(f'<div class="sql-block">{generated_sql}</div>', unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-        with st.expander("📋 Copy SQL"):
+        with st.expander(" Copy SQL"):
             st.code(generated_sql, language="sql")
 
         st.markdown(f"""
         <div class="card">
-          <div class="card-title">💡 What this query does</div>
+          <div class="card-title"> What this query does</div>
           {explanation}
         </div>
         """, unsafe_allow_html=True)
 
     # ── RIGHT: Optimization suggestions ──────────────────────────────────────
     with right:
-        st.markdown('<div class="card"><div class="card-title">⚡ Optimization Tips</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card"><div class="card-title"> Optimization Tips</div>', unsafe_allow_html=True)
         for s in suggestions:
             css_class = f"sug-{s['level']}"
             st.markdown(f'<div class="{css_class}">{s["message"]}</div>', unsafe_allow_html=True)
@@ -165,9 +161,9 @@ if run_btn and user_input.strip():
         if exec_result["success"]:
             st.markdown(f"""
             <div class="card">
-              <div class="card-title">📈 Execution Metrics</div>
-              <span class="metric-pill">⏱ {exec_result["execution_ms"]} ms</span>
-              <span class="metric-pill">📄 {exec_result["row_count"]} row(s)</span>
+              <div class="card-title"> Execution Metrics</div>
+              <span class="metric-pill"> {exec_result["execution_ms"]} ms</span>
+              <span class="metric-pill"> {exec_result["row_count"]} row(s)</span>
             </div>
             """, unsafe_allow_html=True)
         else:
@@ -195,9 +191,9 @@ if run_btn and user_input.strip():
 elif run_btn and not user_input.strip():
     st.warning("Please enter a question before clicking Analyze.")
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Footer
-# ─────────────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <br>
 <div style="text-align:center; color:rgba(255,255,255,0.2); font-size:0.78rem;">
