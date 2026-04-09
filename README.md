@@ -1,7 +1,4 @@
-C:\Users\Chhama\Pictures\Screenshot 2026-04-09 040151.png
-
-
-![Uploading image.png…]()
+https://github.com/yadavchhhama/Smart-Query-Analyzer/blob/938a683b376fb5b3682eab476510c26e2d2d6944/Screenshot%202026-04-09%20040151.png
 
 
 
