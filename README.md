@@ -2,7 +2,7 @@
 
 
 
-
+![image alt](https://github.com/yadavchhhama/Smart-Query-Analyzer/blob/4b89e0e38ceca8df4b5505030701ae49954684f6/Screenshot%202026-04-09%20040205.png)
 
 Project Structure
 
